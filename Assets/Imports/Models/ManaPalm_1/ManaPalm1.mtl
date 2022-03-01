@@ -1,0 +1,30 @@
+newmtl initialShadingGroup
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl lambert2SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.31 0.00 1.00
+Tf 1.00 1.00 1.00
+map_Kd PalmLeaf1.png
+bump  -bm 1 PalmLeaf1.png
+Ni 1.00
+newmtl lambert3SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.11 0.08 0.17
+Tf 1.00 1.00 1.00
+map_Kd -s_0.1_0.05_PalmBark1.png
+bump  -bm 1 -s_0.1_0.05_PalmBark1.png
+Ni 1.00
+newmtl lambert4SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd -s_0.0625_0.25_-clamp_off_Palm_Bark_Top1.png
+bump  -bm -2.409639 -s_0.0625_0.25_Palm_Bark_Top1.png
+Ni 1.00
