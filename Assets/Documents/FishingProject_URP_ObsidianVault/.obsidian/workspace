@@ -1,0 +1,94 @@
+{
+  "main": {
+    "id": "151231519026bcee",
+    "type": "split",
+    "children": [
+      {
+        "id": "caaf5e3829d065fe",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "3-1 Progress.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d8fca01e92bc11ec",
+    "type": "split",
+    "children": [
+      {
+        "id": "d8cdcb240617917a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bce431f9ce7b314f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "2ec547c13d588902",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "right": {
+    "id": "1ba621b7be32fd34",
+    "type": "split",
+    "children": [
+      {
+        "id": "6116e14d19a3a4e1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f5c68537c7c995b7",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "3-1 Progress.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "caaf5e3829d065fe",
+  "lastOpenFiles": [
+    "3-1 Progress.md"
+  ]
+}

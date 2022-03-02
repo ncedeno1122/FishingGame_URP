@@ -21,11 +21,6 @@ namespace Unity_Project.Scripts.Player.Gear
 
         private void Update()
         {
-            //
-            if (!EquippedGear)
-            {
-                return;
-            }
             if (m_FireAction.IsPressed() && (!m_FireAction.WasPressedThisFrame() && !m_FireAction.WasReleasedThisFrame()))
             {
                 EquippedGear.OnFireHeld();

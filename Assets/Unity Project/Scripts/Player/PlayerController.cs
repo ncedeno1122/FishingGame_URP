@@ -14,12 +14,12 @@ namespace Unity_Project.Scripts.Player
         private bool m_IsGrounded;
         private float m_CameraYaw;
 
+        [SerializeField]
         private Vector2 m_InputLookVector2 = Vector2.zero;
         private Vector3 m_InputMovementVector3 = Vector3.zero;
         private Vector3 m_PlayerVelocity = Vector3.zero;
 
         private CharacterController m_CharacterController;
-        [SerializeField]
         private Camera m_PlayerCamera;
         public Transform PlayerCameraTransform;
 
@@ -76,7 +76,7 @@ namespace Unity_Project.Scripts.Player
             var inputVec2 = m_LookAction.ReadValue<Vector2>();
             
             m_InputLookVector2 = inputVec2 * LOOK_SENSITIVITY;
-            
+
             m_CameraYaw += inputVec2.y * LOOK_SENSITIVITY;
             m_CameraYaw = Mathf.Clamp(m_CameraYaw, -90f, 90f);
         }
