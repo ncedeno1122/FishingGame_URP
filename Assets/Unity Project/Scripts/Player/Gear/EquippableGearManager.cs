@@ -5,12 +5,15 @@ using UnityEngine.InputSystem;
 
 namespace Unity_Project.Scripts.Player.Gear
 {
+    /// <summary>
+    /// Allows for player control over an Equippable Gear.
+    /// </summary>
     public class EquippableGearManager : MonoBehaviour
     {
         private PlayerInput m_PlayerInput;
         private InputAction m_MoveAction, m_LookAction, m_FireAction, m_JumpAction;
 
-        public EquippableGear EquippedGear;
+        public EquippableGearController EquippedGear;
 
         private void Awake()
         {

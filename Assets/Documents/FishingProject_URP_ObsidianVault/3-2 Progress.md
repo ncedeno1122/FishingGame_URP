@@ -1,0 +1,29 @@
+# 3-2 Progress
+Following up on some of the concepts from [[3-1 Progress]], I'm working on figuring out some of the abstractions and relations necessary to get a relatively modular EquippableGear system working.
+
+I've started with a distinction of my old class 'EquippableGear', turning it into the 'IFireInputListener' interface.
+What I'm going for is a system in which the Player GameObject (or anything really) has an equipment belt / group of slots for EquippableGears, with `EquippableGearController` scripts on them. *This will sort of load or bind the currently-equipped `EquippableGearController` to the `EauippableGearManager` script on the Player, allowing it to be controlled.*
+After this, my `EquippableGearController` scripts will allow me to polymorphically create behaviors that the EquippableGears will need to work. In the case of the Fishing Rod, there's an elaborate few states that need to be managed. For something like a Trap that needs only being placed, there's less states involved, if at all.
+
+As it is currently, I *think* that all EquippableGears can implement the State pattern, for things like animations and all that. The main thing is, creating some abstract class for the ConcreteGear state data relating to each concrete implementation of gear's animations and states and all that. Goodness, what a mouthful.
+Either way, this allows my `EquippableGearControllers`, bound to and recieving input from the `EquippableGearManager` on my Player (right now, may need renaming), running custom state-based behaviors that we might call `ConcreteGearState(s)`.
+
+Thinking more about this structure, I need my context, `ConcreteGearContext`, and my state-derivatives `ConcreteGearState`. I'm choosing this approach because within my `ConcreteGearContext`, which will manage the states, will have `Next()` and `Previous()` functions to help maintain the states and all that.
+States will have to derive from the abstract `ConcreteGearState`, that's a certainty. But will there be any unique functionality behind the `ConcreteGearContext` class? Do I need this class to directly manage the state-based logic for any reason besides black-boxing (in my mind)? I have to look at State Patterns I've done in the past to justify this...
+
+I feel as though I shouldn't be confused by this, but I haven't drank a lot of water today, so we'll blame it on that. Besides that, I think that I actually DO need different children context classes of `ConcreteGearContext` because this will help identify the current EquippableGear over simply managing the states of a given EquippableGear. What I mean is, I was concerned a lot about the order of the States subclasses, which I initially recalled could be set within the State subclasses themselves, BUT remembered immediately afterwards that this could only happen thanks to the context class that binds them together. However, I don't know if this really makes sense.
+TLDR, I feel as though having subclasses of `ConcreteGearContext` per EquippableGear, like ''`FishingRodGearContext`" would serve to better identify the given subclass. I would need to set some default state though, **which would justify the need for context-based subclasses** YES thank goodness I've arrived at that.
+Ok, so we're going through with it, and we'll thoroughly pick it apart if this approach sucks in hindsight.
+
+Truthfully though, there's really not a lot of ways to verify that I'm not switching to a state that belongs to another EquippableGear. What I mean is (thinking perhaps too far down the road), I don't currently have a way to prevent something like switching to a `ShrimpTrapGearState` from a `FishingRodGearState` thing. I need to figure out some way to verify this information, to give my states and context identity-verification. I can probably do this by simply namespacing it, but that might make for some annoying imports in the future. If I were to give them an enum type, that seems potentially redundant... What to do..?
+
+Here's another thing too, to table that discussion for a moment. I need to think about the role of the contexts. The context subclasses I'm referring to need to set some initial state. However, do they need to be MonoBehaviours? I don't think so, because we could make update functions and other MonoBehaviour-imitating functions that are invoked by the EquippableGearController and all that.
+Well, I know that the state subclasses depend on an Animator, at least. What's more, they have to be coupled to the EquippableGearController to receive some input.
+
+I think I'm just going to have the context subclasses inherit MonoBehaviour. They may need other dependencies, this or that, (for example the transform and Rigidbody of the Bobber in the case of the `FishingRodContext`).
+With that idea complete, I don't think `EquippableGearContext` needs to know about the Animator thing, if it's just meant to help provide controls to the context subclasses, which will make use of the Animator and all other custom structures they may need. Thank goodness for scoping.
+
+Ahh, now it feels like I'm in business. I've figured out the gist of the abstractions and relations here and now I'm feeling like I'm going to cruise through making some subclasses. A lot more coding, a lot less design density for the moment. To summarize my findings, **there is a need for various ConcreteGearContext subclasses, per item.** These will contain the main dependencies needed to animate and work with specific states involved with the functionalities of each EquippableGear. 
+:D
+
+Sweet Success! I can call today's venture a rousing victory for myself! I'll make a commit for now, but I might not be done today.
