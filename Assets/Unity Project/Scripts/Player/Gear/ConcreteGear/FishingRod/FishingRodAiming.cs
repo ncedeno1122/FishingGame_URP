@@ -21,6 +21,9 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         {
             // Animation
             m_FRGContext.Animator.SetBool("IsHoldingFire", true);
+
+            // Bobber Preview
+            m_FRGContext.BobberPreviewTransform.gameObject.SetActive(true);
         }
 
         public override void Exit()
@@ -36,6 +39,20 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         public override void OnFireHeld()
         {
             CastTimeValue += Time.deltaTime;
+
+            m_FRGContext.CalculateTestPoints();
+            for (int i = 1; i < m_FRGContext.KinematicTestArray.Length; i++)
+            {
+                var last = m_FRGContext.KinematicTestArray[i - 1];
+                var curr = m_FRGContext.KinematicTestArray[i];
+                Debug.DrawLine(last, curr, Color.red);
+            }
+
+            var collisionPoint = m_FRGContext.FindCollisionPointInTestPoints();
+            if (collisionPoint != Vector3.zero)
+            {
+                m_FRGContext.BobberPreviewTransform.position = collisionPoint;
+            }
         }
 
         public override void OnFirePressed()
@@ -48,9 +65,15 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
             if (CastTimeValue > CAST_TIME_MINIMUM)
             {
                 var castPower = Mathf.Clamp01(CastTimeValue / CAST_TIME_MAXIMUM);
-                //Debug.Log($"Valid Cast ({CastTimeValue}; {castPower *  100f}% Power!)");
+                //Debug.Log($"Valid Cast ({CastTimeValue}; {castPower *  100f}% Power
 
                 m_Context.ChangeState(new FishingRodCasting(m_Context, castPower));
+
+                var collisionPoint = m_FRGContext.FindCollisionPointInTestPoints();
+                if (collisionPoint != Vector3.zero)
+                {
+                    m_FRGContext.BobberPreviewTransform.position = collisionPoint;
+                }
             }
             else
             {

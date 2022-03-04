@@ -15,7 +15,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         public override void Enter()
         {
-            Debug.Log("Entering FishingRodIdle");
+            //Debug.Log("Entering FishingRodIdle");
             //m_FRGContext.Animator.ResetTrigger("PlayPrecast");
             //m_FRGContext.Animator.ResetTrigger("ReturnFromPrecast");
             //m_FRGContext.Animator.ResetTrigger("PlayCast");
@@ -24,7 +24,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         public override void Exit()
         {
-            Debug.Log("Exiting FishingRodIdle");
+            //Debug.Log("Exiting FishingRodIdle");
         }
         public override void AdvanceStateFromAnimation()
         {
@@ -33,12 +33,12 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         public override void OnFireHeld()
         {
-            Debug.Log("Holding...");
+            //Debug.Log("Holding...");
         }
 
         public override void OnFirePressed()
         {
-            Debug.Log("Pressed!");
+            //Debug.Log("Pressed!");
 
             // Transition to FishingRodAiming
             m_Context.ChangeState(new FishingRodAiming(m_Context));
@@ -46,7 +46,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         public override void OnFireReleased()
         {
-            Debug.Log("Released!");
+            //Debug.Log("Released!");
         }
     }
 }
