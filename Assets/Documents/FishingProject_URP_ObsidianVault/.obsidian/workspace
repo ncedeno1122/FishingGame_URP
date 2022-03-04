@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "3-2 Progress.md",
+            "file": "3-3 Progress.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "3-2 Progress.md",
+                "file": "3-3 Progress.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,8 +89,9 @@
   },
   "active": "caaf5e3829d065fe",
   "lastOpenFiles": [
-    "3-2 Progress.md",
+    "3-3 Progress.md",
     "12-30 Planning.md",
-    "3-1 Progress.md"
+    "3-1 Progress.md",
+    "3-2 Progress.md"
   ]
 }

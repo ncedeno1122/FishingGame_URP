@@ -11,7 +11,7 @@ namespace Unity_Project.Scripts.Player.Gear
     public class EquippableGearController : MonoBehaviour, IFireInputListener
     {
         [SerializeField]
-        private ConcreteGearContext m_GearContext; // TODO: Unique equippable gear script context.
+        private ConcreteGearContext m_GearContext;
 
 
         private void Awake()

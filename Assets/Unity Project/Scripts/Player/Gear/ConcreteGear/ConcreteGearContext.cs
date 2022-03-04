@@ -11,7 +11,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear
     {
         protected EquippableGearController m_EquippableGearController;
 
-        protected ConcreteGearState m_CurrentState; // TODO: Initialize with default states per subclass.
+        protected ConcreteGearState m_CurrentState;
 
         // + + + + | Functions | + + + + 
 
@@ -20,6 +20,11 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear
             m_CurrentState.Exit();
             m_CurrentState = newState;
             m_CurrentState.Enter();
+        }
+
+        public void AdvanceStateFromAnimation()
+        {
+            m_CurrentState.AdvanceStateFromAnimation();
         }
 
         public void OnFireHeld()
