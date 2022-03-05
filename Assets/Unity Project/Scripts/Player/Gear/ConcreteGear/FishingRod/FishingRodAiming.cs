@@ -67,7 +67,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
                 var castPower = Mathf.Clamp01(CastTimeValue / CAST_TIME_MAXIMUM);
                 //Debug.Log($"Valid Cast ({CastTimeValue}; {castPower *  100f}% Power
 
-                m_Context.ChangeState(new FishingRodCasting(m_Context, castPower));
+                m_Context.ChangeState(new FishingRodCasting(m_Context));
 
                 var collisionPoint = m_FRGContext.FindCollisionPointInTestPoints();
                 if (collisionPoint != Vector3.zero)

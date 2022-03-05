@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -172,7 +172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &132541677
 AudioListener:
   m_ObjectHideFlags: 0
@@ -373,6 +373,7 @@ GameObject:
   - component: {fileID: 920229013}
   - component: {fileID: 920229012}
   - component: {fileID: 920229015}
+  - component: {fileID: 920229016}
   m_Layer: 0
   m_Name: Bobber
   m_TagString: Untagged
@@ -402,7 +403,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920229010}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -472,6 +473,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &920229016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920229010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c7e52c0670b494e92e661003513779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OriginPoint: {x: 0, y: 0, z: 0}
+  m_FRGContext: {fileID: 0}
 --- !u!1 &1309897662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,7 +1195,8 @@ MonoBehaviour:
   BobberTransform: {fileID: 0}
   BobberPreviewTransform: {fileID: 0}
   BobberRb: {fileID: 0}
-  m_KinematicTestPoints: []
+  BobberScript: {fileID: 0}
+  LaunchPath: []
   m_HitPoint: {x: 0, y: 0, z: 0}
   KinematicTestArray:
   - {x: 0, y: 0, z: 0}
@@ -1368,7 +1384,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065673565}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &2065673569
 Camera:
   m_ObjectHideFlags: 0
@@ -1376,7 +1392,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065673565}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}

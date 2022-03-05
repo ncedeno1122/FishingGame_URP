@@ -48,5 +48,6 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         {
             //Debug.Log("Released!");
         }
+
     }
 }

@@ -9,22 +9,13 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
     /// </summary>
     public class FishingRodCasting : ConcreteGearState
     {
-        // Horizontal Equation
-        private const float x_v0 = 10f; // Scaled by NormalizedCastPower!
-        private const float x_v1 = 0f;
-
-        // Vertical Equation
-        private const float y_v0 = 5f; // Scaled by NormalizedCastPower
-        private const float y_a = -3.5f;
-
-        private float m_NormalizedCastPower;
+        //private float m_NormalizedCastPower;
 
         private readonly FishingRodGearContext m_FRGContext;
 
-        public FishingRodCasting(ConcreteGearContext ctx, float normalizedCastPower) : base(ctx)
+        public FishingRodCasting(ConcreteGearContext ctx) : base(ctx)
         {
             m_FRGContext = ctx as FishingRodGearContext;
-            m_NormalizedCastPower = normalizedCastPower;
         }
 
         public override void AdvanceStateFromAnimation()
@@ -36,6 +27,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         {
             Debug.Log("Entering FishingRodCasting!");
             m_FRGContext.Animator.SetBool("HasLineBeenCast", true);
+            m_FRGContext.LaunchBobber();
         }
 
         public override void Exit()

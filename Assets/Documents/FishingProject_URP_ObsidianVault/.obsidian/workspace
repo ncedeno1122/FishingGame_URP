@@ -84,14 +84,15 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "active": "caaf5e3829d065fe",
   "lastOpenFiles": [
     "3-4 Planning.md",
-    "3-3 Progress.md",
     "12-30 Planning.md",
     "3-1 Progress.md",
-    "3-2 Progress.md"
+    "3-2 Progress.md",
+    "3-3 Progress.md"
   ]
 }

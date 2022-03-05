@@ -10,9 +10,10 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         public Transform BobberTransform;
         public Transform BobberPreviewTransform;
         public Rigidbody BobberRb;
+        public BobberScript BobberScript;
 
         // Testing :)
-        public List<Vector3> m_KinematicTestPoints = new List<Vector3>();
+        public List<Vector3> LaunchPath = new List<Vector3>();
         public Vector3 m_HitPoint;
         public const int NUM_TESTPOINTS = 10;
         public Vector3[] KinematicTestArray = new Vector3[NUM_TESTPOINTS];
@@ -32,6 +33,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
             BobberTransform = transform.GetChild(0).GetChild(0);
             BobberPreviewTransform = transform.GetChild(1);
             BobberRb = BobberTransform.GetComponent<Rigidbody>(); // TODO: Get when Bobber collides with water/surface to change states.
+            BobberScript = BobberTransform.GetComponent<BobberScript>();
 
             // Hide initially.
             BobberPreviewTransform.gameObject.SetActive(false);
@@ -53,22 +55,6 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
             }
 
             // Testing forward
-            //Gizmos.DrawLine(transform.position, transform.position + (transform.TransformPoint(Vector3.up) * 2));
-            
-            if (m_KinematicTestPoints.Count <= 0) return;
-
-            
-            for(int i = 0; i < m_KinematicTestPoints.Count; i++)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(m_KinematicTestPoints[i], 0.15f);
-
-                Gizmos.color = Color.green;
-                if (i + 1 < m_KinematicTestPoints.Count)
-                {
-                    Gizmos.DrawLine(m_KinematicTestPoints[i], m_KinematicTestPoints[i + 1]);
-                }
-            }
 
             if (m_HitPoint == null) return;
 
@@ -111,11 +97,11 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         public Vector3 CreateRelativeTestPoint(Transform originTransform, float t)
         {
-            var yRotationEulers = transform.rotation.eulerAngles.y;
+            var yRotationEulers = originTransform.rotation.eulerAngles.y;
             var localOffsetVector3 = new Vector3(0f, CalculateVerticalOffset(t), CalculateHorizontalOffset(t));
-            var mixedVectorOnlyXZ = new Vector3(transform.position.x + (Mathf.Sin(Mathf.Deg2Rad * yRotationEulers) * localOffsetVector3.z),
-                                                transform.position.y + localOffsetVector3.y,
-                                                transform.position.z + (Mathf.Cos(Mathf.Deg2Rad * yRotationEulers) * localOffsetVector3.z));
+            var mixedVectorOnlyXZ = new Vector3(originTransform.position.x + (Mathf.Sin(Mathf.Deg2Rad * yRotationEulers) * localOffsetVector3.z),
+                                                originTransform.position.y + localOffsetVector3.y,
+                                                originTransform.position.z + (Mathf.Cos(Mathf.Deg2Rad * yRotationEulers) * localOffsetVector3.z));
             return mixedVectorOnlyXZ;
         }
 
@@ -129,13 +115,19 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         public Vector3 FindCollisionPointInTestPoints()
         {
+            LaunchPath.Clear();
+
             for (int i = 1; i < NUM_TESTPOINTS; i++)
             {
                 var currTestPoint = KinematicTestArray[i];
                 var lastTestPoint = KinematicTestArray[i - 1];
+
+                LaunchPath.Add(lastTestPoint);
+
                 if (Physics.Raycast(lastTestPoint, currTestPoint-lastTestPoint, out RaycastHit hitInfo, (lastTestPoint-currTestPoint).magnitude))
                 {
                     m_HitPoint = hitInfo.point;
+                    LaunchPath.Add(m_HitPoint);
                     return hitInfo.point;
                 }
             }
@@ -143,6 +135,13 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
             return Vector3.zero;
         }
 
+        public void LaunchBobber()
+        {
+            Debug.Log("Launching Bobber from FishingRodGearContext!");
+            BobberScript.HandleFlyAlongCastPath(ref LaunchPath);
+        }
+
+        /*
         public void FindTestPointsUntilCollision()
         {
             m_KinematicTestPoints.Clear();
@@ -177,5 +176,6 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
             m_KinematicTestPoints.AddRange(testPointList);
         }
+        */
     }
 }

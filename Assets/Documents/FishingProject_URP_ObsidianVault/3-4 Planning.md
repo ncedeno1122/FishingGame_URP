@@ -68,3 +68,10 @@ Testing my old function, it works, but I don't like the idea of clearing and rew
 Gah I just realized why, I'm generating test points until collision and all that, but when I place my bobberPreview at the area, it has a collider on it so it slides all the way up the arc, LOLL! How foolish of me.
 
 Good lord that was stupid, lol... That's unfortunate. At least I've figured it out! Now, I know what's going on, which I'm really happy with!
+
+---
+
+Well, my work resumes for a bit. Now I'm thinking of solutions for the Bobber animation. It might be helpful if I put a script on the Bobber and all that. This would do the whole animation based on a List of positions or something.
+I'd have to think about how this system would work.
+
+Honestly I think I've got it..? In any case, it's time to commit this and return upstairs for more work potentially!
