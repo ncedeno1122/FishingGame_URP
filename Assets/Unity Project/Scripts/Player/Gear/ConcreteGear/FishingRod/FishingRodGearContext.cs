@@ -17,6 +17,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         public Vector3 m_HitPoint;
         public const int NUM_TESTPOINTS = 10;
         public Vector3[] KinematicTestArray = new Vector3[NUM_TESTPOINTS];
+        public bool ShowGizmos;
 
         // Horizontal Equation
         public float x_v0 = 6.5f; // Scaled by NormalizedCastPower!
@@ -43,6 +44,8 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         private void OnDrawGizmos()
         {
+            if (!ShowGizmos) return;
+
             Gizmos.color = Color.yellow;
             for (float i = 0f; i < 20f; i += 0.5f)
             {
@@ -59,7 +62,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
             if (m_HitPoint == null) return;
 
             Gizmos.color = Color.blue;
-            Gizmos.DrawSphere((Vector3)m_HitPoint, 0.15f);
+            Gizmos.DrawSphere(m_HitPoint, 0.15f);
         }
 
         // + + + + | Functions | + + + +
