@@ -11,6 +11,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         private IEnumerator m_FlyAlongCastPathCRT;
         public FishingRodGearContext m_FRGContext;
+        public Rigidbody m_Rigidbody;
 
         private List<Vector3> testPointList = new List<Vector3>()
         {
@@ -20,6 +21,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         private void Awake()
         {
             m_FRGContext = transform.parent.parent.GetComponent<FishingRodGearContext>();
+            m_Rigidbody = GetComponent<Rigidbody>();
         }
 
         private void Start()
@@ -28,6 +30,18 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         }
 
         // + + + + | Functions | + + + +
+
+        public void CastBobberNonKinematic(Vector3 playerForward)
+        {
+            // Cast!
+            DetachFromFRGContext();
+            DeactivateKinematic();
+            m_Rigidbody.AddForce(playerForward.normalized * 10f, ForceMode.Impulse);
+
+        }
+
+        private void ActivateKinematic() => m_Rigidbody.isKinematic = true;
+        private void DeactivateKinematic() => m_Rigidbody.isKinematic = false;
 
         private void DetachFromFRGContext()
         {
@@ -60,7 +74,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
             for(int currPathNum = 1; currPathNum < listPathSize; currPathNum++)
             {
-                for (float lerpStepper = 0f; lerpStepper < 1.0f; lerpStepper += 0.1f)
+                for (float lerpStepper = 0f; lerpStepper < 1.0f; lerpStepper += 0.05f)
                 {
                     transform.position = Vector3.Lerp(path[currPathNum - 1], path[currPathNum], lerpStepper);
                     yield return new WaitForSeconds((CASTTIME_MAXIMUM / currPathNum) / 100f);

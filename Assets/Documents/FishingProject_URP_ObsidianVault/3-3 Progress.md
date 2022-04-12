@@ -27,7 +27,7 @@ Very well. Well, here's my constants and what I know. I know there should be som
 *I also can't forget that I need two of these equations, one for each dimension*.
 Alright, so I'm fairly sure that I need to solve for $\Delta x$ more than I need $t$ by a longshot. So, I'll take equation 4 for the vertical equation, and I'll need to rearrange it to solve for my $\Delta x$. That'll should look like:
 $$\Delta x = \frac{v_1^2-v_0^2}{2a}$$
-***IF*** I don't suffer from stinky syndrome and remember my algebra properly.
+***IF*** I don't suffer from stinky syndrome and remember my algebra properly. ^e40ef5
 
 Wait I'm tying myself up mentally, I'm confusing myself. What I'm trying to locate is the point at which the bobber hits the ground in front of the player. I have to think about how each axis moves... AND the role that the power of the swing (0f-1f) will affect this...
 WAIT I'm right... So I do actually know $\Delta x$, because that'll be some constant maximum distance scaled by the power of the swing from the Precasting state. When I was running this through in my head, the lack of a known $t$ value was really messing with me! Perhaps the power of the swing can help scale the $v_0$ values for each axis.

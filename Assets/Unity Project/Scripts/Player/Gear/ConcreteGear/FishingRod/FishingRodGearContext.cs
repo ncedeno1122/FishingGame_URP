@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ExtensionMethods;
 
 namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 {
@@ -25,7 +26,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         // Vertical Equation
         public float y_v0 = 5.5f; // Scaled by NormalizedCastPower
-        public float y_a = -3.5f;
+        public float y_a = Physics.gravity.y;
 
         private void Awake()
         {
@@ -66,26 +67,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         }
 
         // + + + + | Functions | + + + +
-        public float KinematicEquation1(float v0, float a, float t)
-        {
-            return v0 + (a * t); // Returns v1, missing deltaX
-        }
-
-        public float KEquation2(float v1, float v0, float t)
-        {
-            return t * ((v1 + v0) / 2); // Returns deltaX, missing a
-        }
-
-        public float KEquation3(float v0, float a, float t)
-        {
-            return (v0 * t) + ((a * Mathf.Pow(t, 2)) / 2); // Returns deltaX, missing v1
-        }
-
-        public float KEquation4(float v0, float a, float deltaX)
-        {
-            return Mathf.Sqrt(Mathf.Pow(v0, 2) + (2 * (a * deltaX))); // Returns v1, missing t
-        }
-
+        
         public float CalculateHorizontalOffset(float t)
         {
             var xRotationEulers = transform.rotation.eulerAngles.x;
@@ -141,44 +123,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         public void LaunchBobber()
         {
             Debug.Log("Launching Bobber from FishingRodGearContext!");
-            BobberScript.HandleFlyAlongCastPath(ref LaunchPath);
+            BobberScript.CastBobberNonKinematic(transform.forward);
         }
-
-        /*
-        public void FindTestPointsUntilCollision()
-        {
-            m_KinematicTestPoints.Clear();
-
-            int currTestPointNum = 0;
-            int maxTestPointNum = 20;
-            float testPointSpacing = 0.5f;
-
-            List<Vector3> testPointList = new List<Vector3>();
-            m_KinematicTestPoints.Clear();
-
-            for (int i = 0; i < maxTestPointNum; i++)
-            {
-                currTestPointNum = i;
-                var currTestPoint = CreateRelativeTestPoint(transform, currTestPointNum * testPointSpacing);
-                testPointList.Insert(currTestPointNum, currTestPoint);
-
-                // Check for collision between points
-                if (currTestPointNum > 0)
-                {
-                    var currPoint = testPointList[currTestPointNum];
-                    var lastPoint = testPointList[currTestPointNum - 1];
-                    if (Physics.Raycast(lastPoint, currPoint - lastPoint, out RaycastHit hitInfo, (lastPoint - currPoint).magnitude))
-                    {
-                        Debug.Log($"Hit {hitInfo.collider.gameObject.name}");
-                        m_HitPoint = hitInfo.point;
-                        BobberPreviewTransform.position = hitInfo.point;
-                        break;
-                    }
-                }
-            }
-
-            m_KinematicTestPoints.AddRange(testPointList);
-        }
-        */
     }
 }
