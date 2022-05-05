@@ -39,20 +39,6 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         public override void OnFireHeld()
         {
             CastTimeValue += Time.deltaTime;
-
-            m_FRGContext.CalculateTestPoints();
-            for (int i = 1; i < m_FRGContext.KinematicTestArray.Length; i++)
-            {
-                var last = m_FRGContext.KinematicTestArray[i - 1];
-                var curr = m_FRGContext.KinematicTestArray[i];
-                Debug.DrawLine(last, curr, Color.red);
-            }
-
-            var collisionPoint = m_FRGContext.FindCollisionPointInTestPoints();
-            if (collisionPoint != Vector3.zero)
-            {
-                m_FRGContext.BobberPreviewTransform.position = collisionPoint;
-            }
         }
 
         public override void OnFirePressed()
@@ -68,12 +54,6 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
                 //Debug.Log($"Valid Cast ({CastTimeValue}; {castPower *  100f}% Power
 
                 m_Context.ChangeState(new FishingRodCasting(m_Context));
-
-                var collisionPoint = m_FRGContext.FindCollisionPointInTestPoints();
-                if (collisionPoint != Vector3.zero)
-                {
-                    m_FRGContext.BobberPreviewTransform.position = collisionPoint;
-                }
             }
             else
             {

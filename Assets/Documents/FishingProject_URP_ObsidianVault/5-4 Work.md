@@ -18,3 +18,8 @@ The next major changes as I move away from the kinematic system is going to invo
 
 # IT'S TOMORROW NOW BABY
 That's right! It's 10am and the first act of sacrilege I'll commit today involves upgrading my project's version from 2020 to 2021. Initially, I wanted an LTS version of Unity guaranteed to work and not come out with a million new versions that I'd need to ugrade to. Turns out, LTS releases still have that too. I figure I might as well migrate to the Unity-recommended version (there must be a reason it's recommended after all). That said, I'm going to try to do this. Let's hope there's no catastrophic changes and breaks that occur, but there's only one way to find out!
+
+Alrighty. So I don't care about the kinematic test points at this point, I only really care about moving forwards. How I see this at the moment is in working on the FishingRod states and the `BobberScript`. My next step, I think, is going to be about getting a valid cast going, and returning the bobber to it's original position if not.
+I'm slightly interested in making UI for the casting power and whatnot, but I'll save that for later. It sounds fun but I won't concern myself with that now.
+
+In any case, a cast should only be valid if the bobber hits a surface or collider that we detect as water. If it does, then we have a valid cast. If *not*, then we will pull the bobber back to rod and return to the `FishingRodIdle` state.
