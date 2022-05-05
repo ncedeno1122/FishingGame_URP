@@ -255,3 +255,9 @@ Received Import Request.
   path: Assets/Unity Project/Scenes/AmallianCoast.unity
   artifactKey: Guid(78177d0c4a07c60408b25875e8785205) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Unity Project/Scenes/AmallianCoast.unity using Guid(78177d0c4a07c60408b25875e8785205) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aedff986c07a89bc3f08ee9fce0c7766') in 0.006767 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 190.578838 seconds.
+  path: Assets/Unity Project/Scenes/TESTScene.unity
+  artifactKey: Guid(19312dfd93aad784fb52d02009b7c528) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Unity Project/Scenes/TESTScene.unity using Guid(19312dfd93aad784fb52d02009b7c528) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd68486cb6ee654f24cf4f663e07a00b3') in 0.009910 seconds 
