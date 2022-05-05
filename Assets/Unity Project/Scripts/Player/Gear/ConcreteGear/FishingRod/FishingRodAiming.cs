@@ -21,9 +21,6 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         {
             // Animation
             m_FRGContext.Animator.SetBool("IsHoldingFire", true);
-
-            // Bobber Preview
-            m_FRGContext.BobberPreviewTransform.gameObject.SetActive(true);
         }
 
         public override void Exit()
@@ -51,9 +48,9 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
             if (CastTimeValue > CAST_TIME_MINIMUM)
             {
                 var castPower = Mathf.Clamp01(CastTimeValue / CAST_TIME_MAXIMUM);
-                //Debug.Log($"Valid Cast ({CastTimeValue}; {castPower *  100f}% Power
+                Debug.Log($"Valid Cast ({CastTimeValue}; Clamped at {castPower * 100f}% Power)");
 
-                m_Context.ChangeState(new FishingRodCasting(m_Context));
+                m_Context.ChangeState(new FishingRodCasting(m_Context, CastTimeValue));
             }
             else
             {

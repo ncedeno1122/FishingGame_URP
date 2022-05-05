@@ -9,13 +9,14 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
     /// </summary>
     public class FishingRodCasting : ConcreteGearState
     {
-        //private float m_NormalizedCastPower;
+        private float m_NormalizedCastForce;
 
         private readonly FishingRodGearContext m_FRGContext;
 
-        public FishingRodCasting(ConcreteGearContext ctx) : base(ctx)
+        public FishingRodCasting(ConcreteGearContext ctx, float normalizedCastForce) : base(ctx)
         {
             m_FRGContext = ctx as FishingRodGearContext;
+            m_NormalizedCastForce = normalizedCastForce;
         }
 
         public override void AdvanceStateFromAnimation()
@@ -27,7 +28,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         {
             Debug.Log("Entering FishingRodCasting!");
             m_FRGContext.Animator.SetBool("HasLineBeenCast", true);
-            m_FRGContext.LaunchBobber();
+            m_FRGContext.LaunchBobber(m_NormalizedCastForce);
         }
 
         public override void Exit()

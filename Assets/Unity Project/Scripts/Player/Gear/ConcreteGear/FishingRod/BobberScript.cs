@@ -6,15 +6,18 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 {
     public class BobberScript : MonoBehaviour
     {
-        public const float CASTTIME_MAXIMUM = 3f;
+        public const float CAST_FORCE_MIN = 10f;
+        public const float CAST_FORCE_SCALAR = 10f;
         public Vector3 OriginPoint;
 
+        public Transform m_BobberOriginTransform;
         public FishingRodGearContext m_FRGContext;
         public Rigidbody m_Rigidbody;
 
         private void Awake()
         {
-            m_FRGContext = transform.parent.parent.GetComponent<FishingRodGearContext>();
+            m_BobberOriginTransform = transform.parent;
+            m_FRGContext = transform.parent.parent.parent.GetComponent<FishingRodGearContext>();
             m_Rigidbody = GetComponent<Rigidbody>();
         }
 
@@ -25,12 +28,14 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         // + + + + | Functions | + + + +
 
-        public void CastBobberNonKinematic(Vector3 playerForward)
+        public void CastBobberNonKinematic(Vector3 playerForward, float normalizedCastForce)
         {
             // Cast!
             DetachFromFRGContext();
             DeactivateKinematic();
-            m_Rigidbody.AddForce(playerForward.normalized * 10f, ForceMode.Impulse);
+            var castPowerFinal = CAST_FORCE_MIN + (CAST_FORCE_SCALAR * normalizedCastForce);
+            Debug.Log($"Launching Bobber with force of {castPowerFinal}! normalizedCastForce is {normalizedCastForce}.");
+            m_Rigidbody.AddForce(playerForward.normalized * castPowerFinal, ForceMode.Impulse);
 
         }
 
@@ -44,7 +49,16 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         private void ReattachToFRGContext()
         {
-            transform.parent = m_FRGContext.transform.GetChild(0);
+            transform.parent = m_BobberOriginTransform;
         }
+
+        private void ReturnToFRGContext()
+        {
+
+        }
+
+        // + + + + | Collision Handling | + + + +
+
+
     }
 }

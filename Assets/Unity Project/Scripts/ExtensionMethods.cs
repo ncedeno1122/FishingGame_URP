@@ -23,4 +23,9 @@ public static class ExtensionMethods
     {
         return Mathf.Sqrt(Mathf.Pow(v0, 2) + (2 * (a * deltaX))); // Returns v1, missing t
     }
+
+    public static float MapFloat(float x, float inMin, float inMax, float outMin, float outMax)
+    {
+        return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+    }
 }
