@@ -6,6 +6,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 {
     public class BobberScript : MonoBehaviour
     {
+        public bool IsBobberActive;
         public const float CAST_FORCE_MIN = 10f;
         public const float CAST_FORCE_SCALAR = 10f;
         public Vector3 OriginPoint;
@@ -33,10 +34,12 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
             // Cast!
             DetachFromFRGContext();
             DeactivateKinematic();
-            var castPowerFinal = CAST_FORCE_MIN + (CAST_FORCE_SCALAR * normalizedCastForce);
-            Debug.Log($"Launching Bobber with force of {castPowerFinal}! normalizedCastForce is {normalizedCastForce}.");
-            m_Rigidbody.AddForce(playerForward.normalized * castPowerFinal, ForceMode.Impulse);
 
+            var castPowerFinal = CAST_FORCE_MIN + (CAST_FORCE_SCALAR * normalizedCastForce);
+            m_Rigidbody.AddForce(playerForward.normalized * castPowerFinal, ForceMode.Impulse);
+            
+            IsBobberActive = true;
+            Debug.Log($"Launching Bobber with force of {castPowerFinal}! normalizedCastForce is {normalizedCastForce}.");
         }
 
         private void ActivateKinematic() => m_Rigidbody.isKinematic = true;

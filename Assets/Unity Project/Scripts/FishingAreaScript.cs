@@ -30,11 +30,25 @@ namespace Unity_Project.Scripts
 
     public class FishingAreaScript : MonoBehaviour
     {
+        [SerializeField] private float m_SurfaceHeight;
+        [SerializeField] private float m_FloorHeight;
+        [SerializeField] private float m_GODepth;
+
+        [SerializeField] private float m_FloatationEquation_A = 0.14f;
+        [SerializeField] private float m_FloatationEquation_B = 1.4f;
+        [SerializeField] private float m_FloatationEquation_C = -0.5f;
+
         public List<FishingAreaSession> ActiveFishingAreaSessions { get; private set; }
         public List<FishingAreaSession> InactiveFishingAreaSessions { get; private set; }
 
         private void Awake()
         {
+            // Calculate Height
+            m_SurfaceHeight = transform.position.y + (transform.localScale.y / 2f);
+            m_FloorHeight = transform.position.y - (transform.localScale.y / 2f);
+            m_GODepth = Mathf.Abs(m_SurfaceHeight - m_FloorHeight);
+
+            // Create new Lists
             ActiveFishingAreaSessions = new List<FishingAreaSession>();
             InactiveFishingAreaSessions = new List<FishingAreaSession>();
         }
@@ -43,16 +57,28 @@ namespace Unity_Project.Scripts
         {
             foreach (FishingAreaSession session in ActiveFishingAreaSessions)
             {
-                var targetYVelocity = (session.BobberRB.mass * (-1 * Physics.gravity.y)) + 0.125f;
-                var bobberYVelocity = session.BobberRB.velocity.y;
+                var targetYVelocity = (session.BobberRB.mass * (-1 * Physics.gravity.y));
+                var bobberYPosition = session.BobberRB.transform.position.y;
+                var bobberRelativeDepth = m_SurfaceHeight - bobberYPosition; // Difference from m_SurfaceHeight to bobberYPosition
+                var bobberNormalizedDepth = bobberRelativeDepth / m_GODepth;
+                //Debug.Log($"Bobber's Relative Depth is {bobberRelativeDepth} ({bobberNormalizedDepth * 100f} % deep)");
+                
                 session.SessionTime += Time.fixedDeltaTime;
-
-                session.BobberRB.AddForce(Vector3.up * Mathf.Lerp(30f, targetYVelocity, Mathf.Clamp01(session.SessionTime / 1.5f)));
-                //session.BobberRB.AddForce(Vector3.up * targetYVelocity);
+                session.BobberRB.AddForce(Vector3.up * (targetYVelocity * CalculateFloatationForce(bobberRelativeDepth)));
             }
         }
 
         // + + + + | Functions | + + + +  
+
+        /// <summary>
+        /// Returns the floatation force scalar to propel a Bobber in a FishingArea.
+        /// </summary>
+        /// <param name="normalizedDepth">The normalized depth from the surface (0 = surface height, 1 = floor height)</param>
+        /// <returns></returns>
+        private float CalculateFloatationForce(float normalizedDepth)
+        {
+            return (m_FloatationEquation_A * Mathf.Pow(normalizedDepth, 2f)) + (m_FloatationEquation_B * normalizedDepth) + m_FloatationEquation_C;
+        }
 
         // + + + + | Collision Handling | + + + + 
 
@@ -60,7 +86,7 @@ namespace Unity_Project.Scripts
         {
             if (other.gameObject.CompareTag("Bobber"))
             {
-                Debug.Log($"{gameObject.name} caught a bobber, {other.gameObject.name}!");
+                //Debug.Log($"{gameObject.name} caught a bobber, {other.gameObject.name}!");
 
                 // Existing FishingAreaSession?
 
@@ -88,13 +114,13 @@ namespace Unity_Project.Scripts
         {
             if (other.gameObject.CompareTag("Bobber"))
             {
-                Debug.Log($"{gameObject.name} caught a bobber leaving, {other.gameObject.name}!");
+                //Debug.Log($"{gameObject.name} caught a bobber leaving, {other.gameObject.name}!");
 
                 // Find associated FishingAreaSession
                 var fishingSession = ActiveFishingAreaSessions.Find(x => x.BobberGO.Equals(other.gameObject));
                 if (fishingSession == null)
                 {
-                    Debug.Log($"PROBLEM, active fishing session for bobber {other.gameObject} cannot be found...");
+                    //Debug.Log($"PROBLEM, active fishing session for bobber {other.gameObject} cannot be found...");
                 }
                 else
                 {

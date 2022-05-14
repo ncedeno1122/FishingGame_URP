@@ -21,7 +21,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         public override void AdvanceStateFromAnimation()
         {
-            //
+            m_Context.ChangeState(new FishingRodReeling(m_Context));
         }
 
         public override void Enter()
