@@ -40,3 +40,15 @@ For now, I'll stop tweaking with values and continue to develop the whole fishin
 
 ---
 
+Well, the basic concept of reeling was almost more animation than it was scripting. One little state called `FishingRodReeling` and the basic concept was done with.
+
+I do need to implement a maximum line length thing so that you can't just have infinite line or something. It'd have to essentially apply the force to reel but maybe a little harder if the distance exceeds some constant line length.
+
+## ALRIGHTY
+Well, I've hit a new roadblock referring to how I'm actually using a bobber. This was to be expected in the way that I return my nice little Bobber Rigidbody to its original position. In any case, here's the error I'm encountering:
+	When I unparent the Bobber and "detach" it (turn off kinematics, nullify its parent), things are fine. When it comes time to "reattach" the object (the same process in reverse, in that order), the scale, rotation, and position of the Bobber get quite variably distorted.
+Originally I thought this was for some reason relating to the Rigidbody overriding Transform data like position and all that stuff.
+
+***Now, it seems that I might need to take a look at Joints***. It's been a long time coming, and I'm glad I get to learn about them here. How exciting! But not without a little snack. It's 2:17am right now and I have things to do later tomorrow, so I may or may not resume work at this point.
+
+Yeah, I think I'll take care of that tomorrow. Man, for only four hours, I got a decent bit of stuff done. Here's to more happy developing!

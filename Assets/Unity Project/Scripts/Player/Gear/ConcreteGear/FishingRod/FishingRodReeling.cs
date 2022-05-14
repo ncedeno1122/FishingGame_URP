@@ -33,6 +33,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         public override void Exit()
         {
             Debug.Log("Exiting FishingRodReeling!");
+            m_FRGContext.Animator.SetBool("HasLineBeenCast", false);
         }
 
         public override void OnFireHeld()
@@ -42,7 +43,10 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
             if (distToOrigin < 0.5f)
             {
                 Debug.Log("Reeled back in!");
+
                 // Reel it back in!
+                m_FRGContext.ReturnBobber();
+                m_FRGContext.ChangeState(new FishingRodIdle(m_Context));
             }
             else
             {

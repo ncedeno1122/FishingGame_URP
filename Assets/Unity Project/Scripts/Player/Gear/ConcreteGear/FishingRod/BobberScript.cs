@@ -10,6 +10,8 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
         public const float CAST_FORCE_MIN = 10f;
         public const float CAST_FORCE_SCALAR = 10f;
         public Vector3 OriginPoint;
+        public Vector3 OriginalScale;
+        public Quaternion OriginalRotation;
 
         public Transform m_BobberOriginTransform;
         public FishingRodGearContext m_FRGContext;
@@ -24,7 +26,9 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         private void Start()
         {
-            OriginPoint = transform.position;
+            OriginPoint = m_Rigidbody.position;
+            OriginalScale = transform.lossyScale;
+            OriginalRotation = m_Rigidbody.rotation;
         }
 
         // + + + + | Functions | + + + +
@@ -42,6 +46,13 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
             Debug.Log($"Launching Bobber with force of {castPowerFinal}! normalizedCastForce is {normalizedCastForce}.");
         }
 
+        public void HandleReturnBobber()
+        {
+            ActivateKinematic();
+            ReattachToFRGContext();
+            IsBobberActive = false;
+        }
+
         private void ActivateKinematic() => m_Rigidbody.isKinematic = true;
         private void DeactivateKinematic() => m_Rigidbody.isKinematic = false;
 
@@ -52,12 +63,10 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         private void ReattachToFRGContext()
         {
-            transform.parent = m_BobberOriginTransform;
-        }
-
-        private void ReturnToFRGContext()
-        {
-
+            //transform.SetParent(m_BobberOriginTransform, false);
+            m_Rigidbody.position = OriginPoint;
+            m_Rigidbody.rotation = OriginalRotation;
+            transform.localScale = OriginalScale;
         }
 
         // + + + + | Collision Handling | + + + +

@@ -34,5 +34,11 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
             Debug.Log($"Launching Bobber from FishingRodGearContext with normalizedCastForce of {normalizedCastForce}!");
             BobberScript.CastBobberNonKinematic(transform.forward, normalizedCastForce);
         }
+
+        public void ReturnBobber()
+        {
+            Debug.Log("Returning Bobber!");
+            BobberScript.HandleReturnBobber();
+        }
     }
 }
