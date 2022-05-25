@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,13 +19,28 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
             m_EquippableGearController = GetComponent<EquippableGearController>();
             Animator = GetComponent<Animator>();
 
-            // Bobber Components
-            BobberOriginTransform = transform.GetChild(0).GetChild(0);
-            BobberTransform = BobberOriginTransform.GetChild(0);
-            BobberRb = BobberTransform.GetComponent<Rigidbody>(); // TODO: Get when Bobber collides with water/surface to change states.
-            BobberScript = BobberTransform.GetComponent<BobberScript>();
-
             m_CurrentState = new FishingRodIdle(this);
+        }
+
+        private void OnValidate()
+        {
+            if (!Animator)
+            {
+                Animator = GetComponent<Animator>();
+            }
+
+            if (BobberOriginTransform != null && !BobberOriginTransform)
+            {
+                BobberOriginTransform = transform.GetChild(0).GetChild(0);
+            }
+            
+            if (BobberScript)
+            {
+                BobberRb = BobberScript.m_Rigidbody;
+                BobberTransform = BobberRb.transform;
+                BobberScript.m_BobberOriginTransform = BobberOriginTransform;
+                BobberScript.m_FRGContext = this;
+            }
         }
 
         // + + + + | Functions | + + + 

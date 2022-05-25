@@ -22,6 +22,19 @@ namespace Unity_Project.Scripts.Player.Gear
             m_FireAction = m_PlayerInput.actions["Fire"];
         }
 
+        private void OnValidate()
+        {
+            if (!EquippedGear)
+            {
+                var heldItemGO = transform.Find("HeldItem");
+                var gearGO = heldItemGO.GetChild(0);
+                if (gearGO)
+                {
+                    EquippedGear = gearGO.GetComponent<EquippableGearController>();
+                }
+            }
+        }
+
         private void Update()
         {
             if (m_FireAction.IsPressed() && (!m_FireAction.WasPressedThisFrame() && !m_FireAction.WasReleasedThisFrame()))

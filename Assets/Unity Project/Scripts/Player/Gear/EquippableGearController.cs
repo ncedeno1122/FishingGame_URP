@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity_Project.Scripts.Player.Gear.ConcreteGear;
@@ -17,6 +18,14 @@ namespace Unity_Project.Scripts.Player.Gear
         private void Awake()
         {
             m_GearContext = GetComponent<ConcreteGearContext>();
+        }
+
+        private void OnValidate()
+        {
+            if (!m_GearContext)
+            {
+                m_GearContext = GetComponent<ConcreteGearContext>();
+            }
         }
 
         // + + + + | Functions | + + + + 

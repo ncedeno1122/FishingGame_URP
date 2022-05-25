@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Code/5-23 Work.md",
+            "file": "Code/5-24 Work.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Code/5-23 Work.md",
+                "file": "Code/5-24 Work.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +89,7 @@
   },
   "active": "caaf5e3829d065fe",
   "lastOpenFiles": [
+    "Code/5-24 Work.md",
     "Code/5-23 Work.md",
     "Code/5-13 Work.md",
     "Code/5-4 Work.md",
@@ -97,7 +98,6 @@
     "Code/3-1 Progress.md",
     "Code/4-11 to 4-12 Work.md",
     "Code/3-4 Planning.md",
-    "Code/3-3 Progress.md",
-    "Code/12-30 Planning.md"
+    "Code/3-3 Progress.md"
   ]
 }
