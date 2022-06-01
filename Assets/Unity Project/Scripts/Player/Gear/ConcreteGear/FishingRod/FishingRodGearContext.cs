@@ -36,9 +36,9 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
             
             if (BobberScript)
             {
-                BobberRb = BobberScript.m_Rigidbody;
                 BobberTransform = BobberRb.transform;
-                BobberScript.m_BobberOriginTransform = BobberOriginTransform;
+                BobberRb = BobberScript.transform.GetComponent<Rigidbody>();
+                BobberScript.FishingLineBase = BobberOriginTransform;
                 BobberScript.m_FRGContext = this;
             }
         }

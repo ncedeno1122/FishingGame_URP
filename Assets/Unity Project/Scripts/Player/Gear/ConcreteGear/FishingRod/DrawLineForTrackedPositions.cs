@@ -23,8 +23,7 @@ public class DrawLineForTrackedPositions : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LateUpdate()
     {
         // TODO: If we reduce the number during runtime, expect errors.
         for (int i = 0; i < TrackedTransforms.Count; i++)

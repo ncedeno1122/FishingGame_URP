@@ -1,22 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 {
+    [RequireComponent(typeof(Rigidbody))]
+    //[RequireComponent(typeof(FixedJoint))]
     public class BobberScript : MonoBehaviour
     {
         public bool IsBobberActive;
-        public const float CAST_FORCE_MIN = 10f;
-        public const float CAST_FORCE_SCALAR = 10f;
+        private const float CAST_FORCE_MIN = 10f;
+        private const float CAST_FORCE_SCALAR = 10f;
+        private readonly Vector3 m_BobberOffsetPosition = new Vector3(0f, -1f, 0.3f);
 
-        public Transform m_BobberOriginTransform;
+        public Transform FishingLineBase;
         public FishingRodGearContext m_FRGContext;
-        public Rigidbody m_Rigidbody;
+        private Rigidbody m_Rigidbody;
+        public Rigidbody Rigidbody
+        {
+            get => m_Rigidbody;
+            private set => m_Rigidbody = value;
+        }
+
+        private FixedJoint m_OriginFixedJoint;
 
         private void Awake()
         {
             m_Rigidbody = GetComponent<Rigidbody>();
+            m_OriginFixedJoint = GetComponent<FixedJoint>();
         }
 
         private void Start()
@@ -28,8 +41,12 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         public void CastBobberNonKinematic(Vector3 playerForward, float normalizedCastForce)
         {
+            // Destroy FixedJoint
+            var fixedJoint = GetComponent<FixedJoint>();
+            Destroy(fixedJoint);
+            
             // Cast!
-            DeactivateKinematic();
+            //DeactivateKinematic();
 
             var castPowerFinal = CAST_FORCE_MIN + (CAST_FORCE_SCALAR * normalizedCastForce);
             m_Rigidbody.AddForce(playerForward.normalized * castPowerFinal, ForceMode.Impulse);
@@ -40,7 +57,7 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         public void HandleReturnBobber()
         {
-            ActivateKinematic();
+            AttachBobber();
             IsBobberActive = false;
         }
 
@@ -49,11 +66,11 @@ namespace Unity_Project.Scripts.Player.Gear.ConcreteGear.FishingRod
 
         private void AttachBobber()
         {
-            // Prepare bobber
-            m_Rigidbody.isKinematic = true;
-
-            // Move bobber
-            m_Rigidbody.position = m_BobberOriginTransform.position;
+            // Activate Joint
+            var fixedJoint = gameObject.AddComponent<FixedJoint>();
+            fixedJoint.connectedBody = FishingLineBase.GetComponent<Rigidbody>();
+            fixedJoint.autoConfigureConnectedAnchor = false;
+            fixedJoint.connectedAnchor = new Vector3(0f,-1f,0.3f);
         }
 
         // + + + + | Collision Handling | + + + +
